@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Paciente{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Registrar Paciente</h2>
+
+<form action="{% url 'pacientes_new' %}" method="post" class="card p-3 shadow-sm mb-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">RUT</label>
+        <input type="text" name="rut" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Centro</label>
+        <select name="centro" class="form-select">
+            <option>CESFAM Norte</option>
+            <option>Hospital Regional</option>
+            <option>CESFAM Sur</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select name="estado" class="form-select">
+            <option>Pendiente</option>
+            <option>Estable</option>
+            <option>Crítico</option>
+        </select>
+    </div>
+    <button class="btn btn-primary">Agregar Paciente</button>
+</form>
+
+{% if lastPaciente %}
+<div class="card p-3 shadow-sm">
+    <strong>Último paciente registrado:</strong> {{ lastPaciente.nombre }} ({{ lastPaciente.rut }}) - {{ lastPaciente.centro }} - {{ lastPaciente.estado }}
+    <a href="#" class="btn btn-sm btn-outline-primary mt-2">Ver lista completa</a>
+</div>
+{% endif %}
+{% endblock %}
