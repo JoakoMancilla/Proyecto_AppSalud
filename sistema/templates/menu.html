@@ -6,103 +6,106 @@
     <meta charset="UTF-8">
     <title>{% block title %}RedSalud Regional{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body class="bg-light">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">RedSalud Regional</a>
+<body>
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark glass-nav">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="/menu/">🩺 Red de Salud Regional</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Registrar Paciente</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Lista de Pacientes</a></li>
+                <ul class="navbar-nav me-auto ms-3">
+                    <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/listar/">Pacientes</a></li>
                 </ul>
-                <span class="navbar-text text-white me-3">{{ nomUsuario }}</span>
-                <a href="/logout" class="btn btn-outline-light">Cerrar sesión</a>
+                <div class="d-flex align-items-center">
+                    <span class="text-white me-3">{{ nomUsuario }}</span>
+                    <a href="/logout" class="btn btn-light btn-sm px-3">Cerrar sesión</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="container my-4">
+    <!-- Contenido principal -->
+    <div class="container my-5">
 
         {% if nomUsuario == 'TENS' %}
-        <h2 class="mb-4">Panel Técnico en Enfermería (TENS)</h2>
-        <div class="row mb-4 text-center">
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 tens-card text-decoration-none text-dark">
-                    <h4>Registrar Paciente</h4>
+        <h2 class="text-center mb-4">Panel Técnico en Enfermería (TENS)</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <a href="/registrar/" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Registrar Paciente</h4>
                     <p>Ingresar un nuevo paciente al sistema</p>
                 </a>
             </div>
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 tens-card text-decoration-none text-dark">
-                    <h4>Listar Pacientes</h4>
+            <div class="col-md-4 mb-4">
+                <a href="/listar/" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Listar Pacientes</h4>
                     <p>Ver todos los pacientes registrados</p>
                 </a>
             </div>
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 tens-card text-decoration-none text-dark">
-                    <h4>Modificar Datos</h4>
+            <div class="col-md-4 mb-4">
+                <a href="#" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Modificar Datos</h4>
                     <p>Actualizar información de pacientes</p>
                 </a>
             </div>
         </div>
 
-
         {% elif nomUsuario == 'MEDICO' %}
-        <h2 class="mb-4">Panel Médico</h2>
-        <div class="row mb-4 text-center">
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 medico-card text-decoration-none text-dark">
-                    <h4>Lista de Pacientes</h4>
+        <h2 class="text-center mb-4">Panel Médico</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <a href="/listar/" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Lista de Pacientes</h4>
                     <p>Acceso a todos los registros del hospital</p>
                 </a>
             </div>
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 medico-card text-decoration-none text-dark">
-                    <h4>Modificar Diagnóstico</h4>
+            <div class="col-md-4 mb-4">
+                <a href="#" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Modificar Diagnóstico</h4>
                     <p>Actualizar historia clínica y tratamiento</p>
                 </a>
             </div>
-            <div class="col-md-4 mb-3">
-                <a href="#" class="card p-4 medico-card text-decoration-none text-dark">
-                    <h4>Registrar Anamnesis</h4>
+            <div class="col-md-4 mb-4">
+                <a href="#" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Registrar Anamnesis</h4>
                     <p>Agregar información médica detallada</p>
                 </a>
             </div>
         </div>
 
         {% elif nomUsuario == 'ADMIN' %}
-        <h2 class="mb-4">Panel Hospital</h2>
-        <div class="row mb-4 text-center">
-            <div class="col-md-6 mb-3">
-                <a href="#" class="card p-4 hospital-card text-decoration-none text-dark">
-                    <h4>Actualizar Camas</h4>
-                    <p>Controlar disponibilidad de camas en el hospital</p>
+        <h2 class="text-center mb-4">Panel Hospital</h2>
+        <div class="row text-center">
+            <div class="col-md-6 mb-4">
+                <a href="#" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Actualizar Camas</h4>
+                    <p>Controlar disponibilidad de camas</p>
                 </a>
             </div>
-            <div class="col-md-6 mb-3">
-                <a href="#" class="card p-4 hospital-card text-decoration-none text-dark">
-                    <h4>Gestionar Traslados</h4>
+            <div class="col-md-6 mb-4">
+                <a href="#" class="card panel-card p-4 text-decoration-none text-dark">
+                    <h4 class="fw-bold mb-2 text-primary">Gestionar Traslados</h4>
                     <p>Aceptar o rechazar solicitudes de traslado</p>
                 </a>
             </div>
         </div>
         {% endif %}
 
-        <!--DASHBOARD-->
-        <h2 class="mb-4">Dashboard</h2>
-        <div class="row mb-4">
-            <!-- Ocupación Hospital -->
-            <div class="col-md-6">
-                <div class="card shadow-sm p-3 text-center">
-                    <h5>Ocupación Hospital Regional</h5>
+        <!-- Dashboard -->
+        <h2 class="text-center mt-5 mb-4">Dashboard</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card panel-card text-center p-4">
+                    <h5 class="fw-bold text-primary">Ocupación Hospital Regional</h5>
                     <div class="my-3">
                         <svg width="100" height="100">
                             <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="10" fill="none" />
@@ -110,69 +113,32 @@
                                 stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"
                                 stroke-linecap="round" transform="rotate(-90 50 50)" />
                             <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="18"
-                                font-weight="bold">
-                                {{ occupancyPct }}%
-                            </text>
+                                font-weight="bold">{{ occupancyPct }}%</text>
                         </svg>
                     </div>
                     <p>{{ occupied }} / {{ totalBeds }} camas ocupadas</p>
-
-                    {% if role == 'Hospital Regional' %}
-                    <div class="d-flex justify-content-center flex-wrap gap-2">
-                        {% for cama in camas %}
-                        <div class="btn-group mb-1">
-                            <a href="{% url 'update_cama' cama.id 1 %}" class="btn btn-sm btn-outline-primary">+
-                                Ocupada</a>
-                            <a href="{% url 'update_cama' cama.id -1 %}" class="btn btn-sm btn-outline-secondary">-
-                                Libre</a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
                 </div>
             </div>
 
-            <!-- Últimas Anamnesis -->
-            <div class="col-md-6">
-                <div class="card shadow-sm p-3">
-                    <h5>Últimas Anamnesis</h5>
-                    <ul class="list-group list-group-flush mt-2">
+            <div class="col-md-6 mb-4">
+                <div class="card panel-card p-4">
+                    <h5 class="fw-bold text-primary">Últimas Anamnesis</h5>
+                    <ul class="list-group list-group-flush mt-3">
                         {% for a in latestAnamnesis %}
-                        <li class="list-group-item">{{ a.pacienteNombre }} - {{ a.resumen }} - {{
-                            a.fecha|date:"d/m/Y H:i"
-                            }}</li>
+                        <li class="list-group-item">{{ a.pacienteNombre }} - {{ a.resumen }} - {{ a.fecha|date:"d/m/Y H:i" }}</li>
                         {% empty %}
-                        <li class="list-group-item">No hay registros</li>
+                        <li class="list-group-item text-muted">No hay registros</li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!--
-        Pacientes Recientes
-        <div class="card shadow-sm p-3">
-            <h5>Pacientes Recientes</h5>
-            <ul class="list-group mt-2">
-                {% for p in recentPacientes %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ p.nombre }} ({{ p.rut }}) - {{ p.centro }} - {{ p.estado }}
-                    <div class="btn-group">
-                        <a href="{% url 'add_anamnesis' p.id %}" class="btn btn-sm btn-outline-primary">Anamnesis</a>
-                        {% if role != 'Hospital Regional' %}
-                        <a href="{% url 'request_traslado' p.id %}" class="btn btn-sm btn-outline-secondary">Solicitar
-                            traslado</a>
-                        {% endif %}
-                    </div>
-                </li>
-                {% empty %}
-                <li class="list-group-item">No hay pacientes recientes</li>
-                {% endfor %}
-            </ul>
-            <a href="#" class="btn btn-sm btn-outline-primary mt-2">Ver lista completa</a>
-        </div>
-        -->
     </div>
+
+    <footer class="text-center py-3 mt-5 small">
+        © 2025 RedSalud Regional - Sistema de Gestión de Pacientes
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

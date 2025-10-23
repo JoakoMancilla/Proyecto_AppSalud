@@ -1,42 +1,133 @@
-{% extends 'base.html' %}
-{% block title %}Registrar Paciente{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block content %}
-<h2 class="mb-4">Registrar Paciente</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 
-<form action="{% url 'pacientes_new' %}" method="post" class="card p-3 shadow-sm mb-4">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" name="nombre" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">RUT</label>
-        <input type="text" name="rut" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Centro</label>
-        <select name="centro" class="form-select">
-            <option>CESFAM Norte</option>
-            <option>Hospital Regional</option>
-            <option>CESFAM Sur</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Estado</label>
-        <select name="estado" class="form-select">
-            <option>Pendiente</option>
-            <option>Estable</option>
-            <option>Crítico</option>
-        </select>
-    </div>
-    <button class="btn btn-primary">Agregar Paciente</button>
-</form>
+<body>
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark glass-nav">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="/menu/">🩺 Red de Salud Regional</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-{% if lastPaciente %}
-<div class="card p-3 shadow-sm">
-    <strong>Último paciente registrado:</strong> {{ lastPaciente.nombre }} ({{ lastPaciente.rut }}) - {{ lastPaciente.centro }} - {{ lastPaciente.estado }}
-    <a href="#" class="btn btn-sm btn-outline-primary mt-2">Ver lista completa</a>
-</div>
-{% endif %}
-{% endblock %}
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto ms-3">
+                    <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/listar/">Pacientes</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="text-white me-3">{{ nomUsuario }}</span>
+                    <a href="/logout" class="btn btn-light btn-sm px-3">Cerrar sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container my-5">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+            <h2 class="text-center fw-bold mb-4 text-primary">Registro de Paciente</h2>
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">RUT</label>
+                        <input type="text" name="rut" class="form-control shadow-sm" required
+                        placeholder="Ej: 11222333-4">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Previsión</label>
+                        <select name="prevision" class="form-select shadow-sm" required>
+                            <option value="">Seleccione...</option>
+                            <option>Fonasa</option>
+                            <option>Isapre</option>
+                            <option>Particular</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Género</label>
+                        <select name="genero" class="form-select shadow-sm" required>
+                            <option value="">Seleccione...</option>
+                            <option>Femenino</option>
+                            <option>Masculino</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Accidente Laboral</label>
+                        <select name="accidenteLaboral" class="form-select shadow-sm" required>
+                            <option value="">Seleccione...</option>
+                            <option>Sí</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Edad</label>
+                        <input type="number" name="edad" class="form-control shadow-sm" required>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold">Comorbilidades</label>
+                        <input type="text" name="comorbilidades" class="form-control shadow-sm"
+                            placeholder="Ej: Hipertensión, Diabetes...">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Funcionalidad</label>
+                        <input type="text" name="funcionalidad" class="form-control shadow-sm" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Motivo de Derivación</label>
+                        <input type="text" name="motivoDerivacion" class="form-control shadow-sm" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Prestación Requerida</label>
+                        <input type="text" name="prestacionRequerida" class="form-control shadow-sm" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Evaluación</label>
+                        <input type="text" name="evaluacion" class="form-control shadow-sm" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Información Adicional</label>
+                        <textarea name="adicional" class="form-control shadow-sm" rows="3"
+                            placeholder="Observaciones, contexto social, etc."></textarea>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-5">Guardar Registro</button>
+                    <a href="/menu/" class="btn btn-outline-secondary px-4 ms-2">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="text-center py-3 text-muted small">
+        © 2025 RedSalud Regional - Sistema de Gestión de Pacientes
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

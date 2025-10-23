@@ -61,7 +61,35 @@ def cerrarSesion(request):
     except:
         datos = {'r':'La sesión está cerrada!'}
         return render(request, 'index.html',datos)
-    
+
+def registrarPacientes(request):
+    try:
+        estado = request.session['estadoSesion']
+        nombre = request.session['nomUsuario']
+        datos = {'nomUsuario':nombre}
+        if estado is True:
+            return render(request,'registrar.html',datos)
+        else:
+            datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
+            return render(request,'index.html',datos)
+    except:
+            datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
+            return render(request,'index.html',datos)
+
+def listarPacientes(request):
+    try:
+        estado = request.session['estadoSesion']
+        nombre = request.session['nomUsuario']
+        datos = {'nomUsuario':nombre}
+        if estado is True:
+            return render(request,'listar.html',datos)
+        else:
+            datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
+            return render(request,'index.html',datos)
+    except:
+            datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
+            return render(request,'index.html',datos)
+
 # CRUD
 #---------------------------------------------------------------------------------------
 

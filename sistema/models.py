@@ -7,6 +7,7 @@ class Usuario(models.Model):
         return str(self.nombre)+'-'+str(self.contraseña)
 
 class Paciente(models.Model):
+    rut = models.CharField(max_length=14)
     prevision = models.CharField(max_length=20)
     accidenteLaboral = models.CharField(max_length=20)
     genero = models.CharField(max_length=10)
