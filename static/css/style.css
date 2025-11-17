@@ -13,7 +13,8 @@ body {
    Navbar moderna
 ========================== */
 .glass-nav {
-    background: rgba(13, 110, 253, 0.9); /* Azul coherente con el branding */
+    background: rgba(13, 110, 253, 0.9);
+    /* Azul coherente con el branding */
     backdrop-filter: blur(10px);
     border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -37,7 +38,8 @@ body {
 }
 
 
-.card, .panel-card {
+.card,
+.panel-card {
     border-radius: 1rem;
     border: none;
     background: #ffffff;
@@ -45,7 +47,9 @@ body {
     transition: all 0.3s ease;
 }
 
-h2, h4, h5 {
+h2,
+h4,
+h5 {
     font-weight: 700;
     color: #0d6efd;
 }
@@ -56,7 +60,8 @@ h2, h4, h5 {
     transition: all 0.2s ease;
 }
 
-.btn-light, .btn-outline-light {
+.btn-light,
+.btn-outline-light {
     border-radius: 30px;
     font-weight: 600;
 }
@@ -107,6 +112,7 @@ Animaciones
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -143,8 +149,10 @@ Animaciones
 .form-control,
 .form-select,
 textarea.form-control {
-    height: 45px;         /* altura uniforme para inputs y selects */
-    padding: 0.65rem 1rem; /* mismo padding interno */
+    height: 45px;
+    /* altura uniforme para inputs y selects */
+    padding: 0.65rem 1rem;
+    /* mismo padding interno */
     font-size: 1rem;
     border-radius: 0.75rem;
     border: 1px solid #d1d5db;
@@ -161,7 +169,25 @@ textarea.form-control:focus {
 /* Para textareas un poco más grandes pero consistentes */
 textarea.form-control {
     height: auto;
-    min-height: 80px; /* altura mínima razonable */
+    min-height: 80px;
+    /* altura mínima razonable */
     padding-top: 0.65rem;
     padding-bottom: 0.65rem;
 }
+
+.border-tens {
+    border-color: #8be6ff !important;
+}
+
+.border-enfermero {
+    border-color: #0b0bda !important;
+}
+
+.border-medico {
+    border-color: #4b4b4c !important;
+}
+
+.border-admin {
+    border-color: #4acf84 !important;
+}
+
