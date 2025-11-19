@@ -22,9 +22,9 @@
 
         .nav-glass {
             backdrop-filter: blur(16px);
-            background: rgba(255,255,255,0.55);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+            background: rgba(255, 255, 255, 0.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
         }
 
         .nav-link {
@@ -51,16 +51,16 @@
 
         .card-modern {
             backdrop-filter: blur(18px);
-            background: rgba(255,255,255,0.75);
+            background: rgba(255, 255, 255, 0.75);
             border-radius: 20px;
             padding: 28px;
-            border: 1px solid rgba(255,255,255,0.6);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
             transition: .25s ease;
         }
 
         .card-modern:hover {
-            box-shadow: 0 15px 28px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 28px rgba(0, 0, 0, 0.12);
         }
 
         .profile-header {
@@ -110,9 +110,10 @@
             flex: 1 1 280px;
             border-radius: 20px;
             padding: 22px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
             transition: .2s ease;
-            background: inherit; /* usa el fondo del card-modern */
+            background: inherit;
+            /* usa el fondo del card-modern */
         }
 
         .info-card h5 {
@@ -133,16 +134,19 @@
             color: #0d6efd;
         }
 
-        .btn-primary, .btn-success, .btn-outline-secondary {
+        .btn-primary,
+        .btn-success,
+        .btn-outline-secondary {
             border-radius: 16px;
             font-weight: 600;
             padding: 12px 28px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .btn-primary:hover, .btn-success:hover {
+        .btn-primary:hover,
+        .btn-success:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
         }
 
         .trash-btn {
@@ -163,23 +167,27 @@
         }
 
         /* Formularios diagnósticos */
-        #formDiagnostico, #formActualizarDiagnostico {
+        #formDiagnostico,
+        #formActualizarDiagnostico {
             border-radius: 16px;
             padding: 25px;
             background: #ffffffee;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             margin-top: 20px;
         }
 
-        #formDiagnostico .form-label, #formActualizarDiagnostico .form-label {
+        #formDiagnostico .form-label,
+        #formActualizarDiagnostico .form-label {
             font-weight: 600;
         }
 
-        #formDiagnostico .mb-3, #formActualizarDiagnostico .mb-3 {
+        #formDiagnostico .mb-3,
+        #formActualizarDiagnostico .mb-3 {
             margin-bottom: 18px;
         }
 
-        #formDiagnostico button, #formActualizarDiagnostico button {
+        #formDiagnostico button,
+        #formActualizarDiagnostico button {
             border-radius: 16px;
             font-weight: 700;
             padding: 14px 0;
@@ -215,10 +223,10 @@
                 <ul class="navbar-nav me-auto ms-3">
                     <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
                     {% if nomUsuario == 'ADMIN' %}
-                        <li class="nav-item"><a class="nav-link" href="/historial/">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/historial/">Historial</a></li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/listarPacientes/">Pacientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/listarPacientes/">Pacientes</a></li>
                     {% endif %}
                 </ul>
                 <div class="d-flex align-items-center">
@@ -232,151 +240,178 @@
     <!-- CONTENIDO PRINCIPAL -->
     <div class="container py-5">
         {% if r %}
-            <div class="alert alert-danger alert-dismissible fade show mx-auto text-center" style="max-width: 650px;" role="alert">
-                <h6 class="mb-0">{{ r }}</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show mx-auto text-center" style="max-width: 650px;"
+            role="alert">
+            <h6 class="mb-0">{{ r }}</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         {% endif %}
 
         {% if not paciente %}
-            <div class="card-modern mx-auto text-center" style="max-width: 650px;">
-                <h3 class="fw-bold text-danger"><i class="bi bi-x-circle"></i> Paciente Eliminado</h3>
-                <p class="mt-3 text-muted">Esta ficha ya no contiene datos. El paciente ha sido eliminado del sistema.</p>
-                <a href="/listarPacientes/" class="btn btn-outline-secondary mt-3">
-                    <i class="bi bi-arrow-left"></i> Volver
-                </a>
-            </div>
+        <div class="card-modern mx-auto text-center" style="max-width: 650px;">
+            <h3 class="fw-bold text-danger"><i class="bi bi-x-circle"></i> Paciente Eliminado</h3>
+            <p class="mt-3 text-muted">Esta ficha ya no contiene datos. El paciente ha sido eliminado del sistema.</p>
+            <a href="/listarPacientes/" class="btn btn-outline-secondary mt-3">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
         {% else %}
-            <div class="card-modern mx-auto" style="max-width: 950px;">
-                <!-- ID + Botón eliminar -->
-                <div class="position-relative mb-3">
-                    <div class="text-start text-muted small"><strong>ID:</strong> {{ paciente.id }}</div>
-                    {% if nomUsuario == 'MEDICO' %}
-                        <a href="/eliminarPaciente/{{ paciente.id }}" class="trash-btn position-absolute top-0 end-0 me-1 mt-1" onclick="return confirmarEliminacion()">
-                            <i class="bi bi-trash-fill"></i>
-                        </a>
+        <div class="card-modern mx-auto" style="max-width: 950px;">
+            <!-- ID + Botón eliminar -->
+            <div class="position-relative mb-3">
+                <div class="text-start text-muted small"><strong>ID:</strong> {{ paciente.id }}</div>
+                {% if nomUsuario == 'MEDICO' %}
+                <a href="/eliminarPaciente/{{ paciente.id }}" class="trash-btn position-absolute top-0 end-0 me-1 mt-1"
+                    onclick="return confirmarEliminacion()">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+                {% endif %}
+            </div>
+
+            <h2 class="text-center section-title">Ficha de Paciente</h2>
+
+            <!-- HEADER -->
+            <div class="profile-header">
+                <div class="avatar"><i class="bi bi-person-circle"></i></div>
+                <div>
+                    <p><strong>RUT:</strong> {{ paciente.rut }}</p>
+                </div>
+            </div>
+
+            <!-- TARJETAS -->
+            <div class="info-section">
+                <div class="info-card generales">
+                    <h5><i class="bi bi-person-fill"></i> Generales</h5>
+                    <p><strong>Edad:</strong> {{ paciente.edad }}</p>
+                    <p><strong>Género:</strong> {{ paciente.genero }}</p>
+                    <p><strong>Previsión:</strong> {{ paciente.prevision }}</p>
+                    <p><strong>Accidente Laboral:</strong> {{ paciente.accidenteLaboral }}</p>
+                </div>
+                <div class="info-card salud">
+                    <h5><i class="bi bi-heart-pulse-fill"></i> Salud & Funcionalidad</h5>
+                    <p><strong>Comorbilidades:</strong> {{ paciente.Comobilidades }}</p>
+                    <p><strong>Funcionalidad:</strong> {{ paciente.funcionalidad }}</p>
+                </div>
+                <div class="info-card clinicos" style="flex-basis: 100%;">
+                    <h5><i class="bi bi-file-medical-fill"></i> Datos Clínicos</h5>
+                    <p><strong>Motivo de Derivación:</strong> {{ paciente.motivoDerivacion }}</p>
+                    <p><strong>Prestación Requerida:</strong> {{ paciente.prestacionRequerida }}</p>
+                    <p><strong>Evaluación:</strong> {{ paciente.evaluacion }}</p>
+                    {% if paciente.adicional %}
+                    <p><strong>Información Adicional:</strong> {{ paciente.adicional }}</p>
                     {% endif %}
                 </div>
+            </div>
 
-                <h2 class="text-center section-title">Ficha de Paciente</h2>
-
-                <!-- HEADER -->
-                <div class="profile-header">
-                    <div class="avatar"><i class="bi bi-person-circle"></i></div>
-                    <div>
-                        <p><strong>RUT:</strong> {{ paciente.rut }}</p>
-                    </div>
-                </div>
-
-                <!-- TARJETAS -->
-                <div class="info-section">
-                    <div class="info-card generales">
-                        <h5><i class="bi bi-person-fill"></i> Generales</h5>
-                        <p><strong>Edad:</strong> {{ paciente.edad }}</p>
-                        <p><strong>Género:</strong> {{ paciente.genero }}</p>
-                        <p><strong>Previsión:</strong> {{ paciente.prevision }}</p>
-                        <p><strong>Accidente Laboral:</strong> {{ paciente.accidenteLaboral }}</p>
-                    </div>
-                    <div class="info-card salud">
-                        <h5><i class="bi bi-heart-pulse-fill"></i> Salud & Funcionalidad</h5>
-                        <p><strong>Comorbilidades:</strong> {{ paciente.Comobilidades }}</p>
-                        <p><strong>Funcionalidad:</strong> {{ paciente.funcionalidad }}</p>
-                    </div>
-                    <div class="info-card clinicos" style="flex-basis: 100%;">
-                        <h5><i class="bi bi-file-medical-fill"></i> Datos Clínicos</h5>
-                        <p><strong>Motivo de Derivación:</strong> {{ paciente.motivoDerivacion }}</p>
-                        <p><strong>Prestación Requerida:</strong> {{ paciente.prestacionRequerida }}</p>
-                        <p><strong>Evaluación:</strong> {{ paciente.evaluacion }}</p>
-                        {% if paciente.adicional %}
-                            <p><strong>Información Adicional:</strong> {{ paciente.adicional }}</p>
+            <!-- DIAGNÓSTICO -->
+            <div class="mt-4">
+                <div class="info-card clinicos">
+                    <h5>
+                        <i class="bi bi-clipboard2-pulse"></i> Diagnóstico Médico
+                        {% if paciente.solicitudMedica == "SIN_SOLICITUD" %}
+                        <span class="badge bg-secondary ms-2"></span>
+                        {% elif paciente.solicitudMedica == "SOLICITADO" %}
+                        <span class="badge bg-warning text-dark ms-2">Solicitud pendiente</span>
+                        {% elif paciente.solicitudMedica == "ATENDIDO" %}
+                        <span class="badge bg-success ms-2">Diagnóstico registrado</span>
                         {% endif %}
-                    </div>
-                </div>
+                    </h5>
 
-                <!-- DIAGNÓSTICO -->
-                <div class="mt-4">
-                    <div class="info-card clinicos">
-                        <h5>
-                            <i class="bi bi-clipboard2-pulse"></i> Diagnóstico Médico
-                            {% if paciente.solicitudMedica == "SIN_SOLICITUD" %}
-                                <span class="badge bg-secondary ms-2"></span>
-                            {% elif paciente.solicitudMedica == "SOLICITADO" %}
-                                <span class="badge bg-warning text-dark ms-2">Solicitud pendiente</span>
-                            {% elif paciente.solicitudMedica == "ATENDIDO" %}
-                                <span class="badge bg-success ms-2">Diagnóstico registrado</span>
-                            {% endif %}
-                        </h5>
+                    {% if diagnostico %}
+                    <p><strong>Diagnóstico:</strong> {{ diagnostico.diagnostico }}</p>
+                    <p><strong>Medicación:</strong> {{ diagnostico.medicacion }}</p>
+                    <p><strong>Indicaciones:</strong> {{ diagnostico.indicaciones }}</p>
 
-                        {% if diagnostico %}
-                            <p><strong>Diagnóstico:</strong> {{ diagnostico.diagnostico }}</p>
-                            <p><strong>Medicación:</strong> {{ diagnostico.medicacion }}</p>
-                            <p><strong>Indicaciones:</strong> {{ diagnostico.indicaciones }}</p>
+                    {% if nomUsuario == "MEDICO" %}
+                    <button id="btnEditarDiagnostico" class="btn btn-success mt-3 w-100">
+                        <i class="bi bi-pencil-square me-1"></i> Editar Diagnóstico
+                    </button>
 
-                            {% if nomUsuario == "MEDICO" %}
-                                <button id="btnEditarDiagnostico" class="btn btn-success mt-3 w-100">
-                                    <i class="bi bi-pencil-square me-1"></i> Editar Diagnóstico
-                                </button>
+                    <form id="formActualizarDiagnostico" method="POST" action="/actualizarDiagnostico/{{ paciente.id }}"
+                        style="display:none;">
+                        {% csrf_token %}
+                        <h5>Actualizar Diagnóstico</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Diagnóstico</label>
+                            <textarea name="diagnostico" class="form-control"
+                                required>{{ diagnostico.diagnostico }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Medicación</label>
+                            <textarea name="medicacion" class="form-control">{{ diagnostico.medicacion }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Indicaciones</label>
+                            <textarea name="indicaciones" class="form-control"
+                                required>{{ diagnostico.indicaciones }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 mt-2">
+                            <i class="bi bi-check-circle"></i> Guardar Cambios
+                        </button>
+                    </form>
+                    {% endif %}
 
-                                <form id="formActualizarDiagnostico" method="POST" action="/actualizarDiagnostico/{{ paciente.id }}" style="display:none;">
-                                    {% csrf_token %}
-                                    <h5>Actualizar Diagnóstico</h5>
-                                    <div class="mb-3">
-                                        <label class="form-label">Diagnóstico</label>
-                                        <textarea name="diagnostico" class="form-control" required>{{ diagnostico.diagnostico }}</textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Medicación</label>
-                                        <textarea name="medicacion" class="form-control">{{ diagnostico.medicacion }}</textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Indicaciones</label>
-                                        <textarea name="indicaciones" class="form-control" required>{{ diagnostico.indicaciones }}</textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-success w-100 mt-2">
-                                        <i class="bi bi-check-circle"></i> Guardar Cambios
-                                    </button>
-                                </form>
-                            {% endif %}
-                        {% else %}
-                            <p class="text-muted mb-3">Aún no existe un diagnóstico registrado.</p>
-                            {% if nomUsuario == "MEDICO" %}
-                                <button id="btnDiagnostico" class="btn btn-primary mt-2 w-100">
-                                    <i class="bi bi-journal-medical me-1"></i> Registrar Diagnóstico
-                                </button>
-                                <form id="formDiagnostico" method="POST" action="/registrarDiagnostico/{{ paciente.id }}" style="display:none;">
-                                    {% csrf_token %}
-                                    <h5>Registrar Diagnóstico</h5>
-                                    <div class="mb-3">
-                                        <label class="form-label">Diagnóstico</label>
-                                        <textarea name="diagnostico" class="form-control" required></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Medicación</label>
-                                        <textarea name="medicacion" class="form-control"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Indicaciones</label>
-                                        <textarea name="indicaciones" class="form-control" required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-success w-100 mt-2">
-                                        <i class="bi bi-check-circle"></i> Guardar Diagnóstico
-                                    </button>
-                                </form>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
+                    {% else %}
+                    <p class="text-muted mb-3">Aún no existe un diagnóstico registrado.</p>
 
-                <!-- BOTONES FINALES -->
-                <div class="text-center mt-4">
-                    <a href="/listarPacientes/" class="btn btn-outline-secondary me-2">
-                        <i class="bi bi-arrow-left"></i> Volver
-                    </a>
-                    <a href="/mostrarActualizarPaciente/{{ paciente.id }}" class="btn btn-primary me-2" id="btnActualizar">
-                        <i class="bi bi-pencil-square"></i> Actualizar
-                    </a>
+                    <!-- BOTÓN PARA MEDICO -->
+                    {% if nomUsuario == "MEDICO" %}
+                    <button id="btnDiagnostico" class="btn btn-primary mt-2 w-100">
+                        <i class="bi bi-journal-medical me-1"></i> Registrar Diagnóstico
+                    </button>
+                    <form id="formDiagnostico" method="POST" action="/registrarDiagnostico/{{ paciente.id }}"
+                        style="display:none;">
+                        {% csrf_token %}
+                        <h5>Registrar Diagnóstico</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Diagnóstico</label>
+                            <textarea name="diagnostico" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Medicación</label>
+                            <textarea name="medicacion" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Indicaciones</label>
+                            <textarea name="indicaciones" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 mt-2">
+                            <i class="bi bi-check-circle"></i> Guardar Diagnóstico
+                        </button>
+                    </form>
+                    {% endif %}
+
+                    <!-- BOTÓN PARA TENS Y ENFERMERO -->
+                    {% if nomUsuario != "MEDICO" %}
+                    {% if paciente.solicitudMedica == "SIN_SOLICITUD" %}
+                    <form method="POST" action="/solicitarDiagnostico/{{ paciente.id }}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary mt-3 w-100">
+                            <i class="bi bi-exclamation-circle me-1"></i> Solicitar Diagnóstico
+                        </button>
+                    </form>
+                    {% elif paciente.solicitudMedica == "SOLICITADO" %}
+                    <p class="mt-2 text-primary fw-semibold">
+                        <i class="bi bi-hourglass-split"></i> Solicitud de diagnóstico enviada.
+                    </p>
+                    {% endif %}
+                    {% endif %}
+
+                    {% endif %}
                 </div>
             </div>
+
+
+            <!-- BOTONES FINALES -->
+            <div class="text-center mt-4">
+                <a href="/listarPacientes/" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+                <a href="/mostrarActualizarPaciente/{{ paciente.id }}" class="btn btn-primary me-2" id="btnActualizar">
+                    <i class="bi bi-pencil-square"></i> Actualizar
+                </a>
+            </div>
+        </div>
         {% endif %}
     </div>
 
@@ -415,4 +450,5 @@
         });
     </script>
 </body>
+
 </html>

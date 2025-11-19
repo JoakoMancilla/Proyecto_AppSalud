@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}RedSalud Regional{% endblock %}</title>
@@ -19,9 +20,9 @@
         /* NAVBAR NUEVO */
         .nav-glass {
             backdrop-filter: blur(16px);
-            background: rgba(255,255,255,0.55);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+            background: rgba(255, 255, 255, 0.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
         }
 
         .nav-link {
@@ -39,17 +40,17 @@
         /* TARJETAS MODERNAS */
         .card-modern {
             backdrop-filter: blur(18px);
-            background: rgba(255,255,255,0.75);
+            background: rgba(255, 255, 255, 0.75);
             border-radius: 20px;
             padding: 28px;
             transition: .25s ease;
-            border: 1px solid rgba(255,255,255,0.6);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
         }
 
         .card-modern:hover {
             transform: translateY(-6px);
-            box-shadow: 0 15px 28px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 28px rgba(0, 0, 0, 0.12);
         }
 
         .icon-circle {
@@ -77,7 +78,7 @@
             border-radius: 22px;
             background: white;
             padding: 25px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             transition: .2s ease;
         }
 
@@ -100,225 +101,197 @@
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg nav-glass py-3">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand" href="/menu/">
-            <i class="bi bi-hospital"></i> RedSalud Regional
-        </a>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg nav-glass py-3">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="/menu/">
+                <i class="bi bi-hospital"></i> RedSalud Regional
+            </a>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-            <ul class="navbar-nav me-auto ms-3">
-                <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
+                <ul class="navbar-nav me-auto ms-3">
+                    <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
 
-                {% if nomUsuario == 'ADMIN' %}
+                    {% if nomUsuario == 'ADMIN' %}
                     <li class="nav-item"><a class="nav-link" href="/historial/">Historial</a></li>
-                {% else %}
+                    {% else %}
                     <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="/listarPacientes/">Pacientes</a></li>
-                {% endif %}
-            </ul>
-
-            <div class="d-flex align-items-center">
-                <span class="me-3 fw-bold text-primary">{{ nomUsuario }}</span>
-                <button onclick="botonCerrarSesion()" class="btn btn-outline-primary btn-sm">Cerrar sesión</button>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!-- CONTENIDO -->
-<div class="container py-5">
-
-
-    <!-- PANEL TENS -->
-    {% if nomUsuario == 'TENS' %}
-    <h2 class="section-title text-center">Panel Técnico en Enfermería</h2>
-
-    <div class="row g-4">
-
-        <div class="col-md-6">
-            <a href="/registrarPaciente/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-person-plus"></i></div>
-                    <h4 class="fw-bold mb-1">Registrar Paciente</h4>
-                    <span class="text-muted">Agregar paciente al sistema</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-6">
-            <a href="/listarPacientes/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-people"></i></div>
-                    <h4 class="fw-bold mb-1">Listar Pacientes</h4>
-                    <span class="text-muted">Ver todos los registros</span>
-                </div>
-            </a>
-        </div>
-
-    </div>
-    {% endif %}
-
-
-
-    <!-- PANEL ENFERMERO -->
-    {% if nomUsuario == 'ENFERMERO' %}
-    <h2 class="section-title text-center">Panel Enfermería</h2>
-
-    <div class="row g-4">
-
-        <div class="col-md-6">
-            <a href="/registrarPaciente/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-person-plus"></i></div>
-                    <h4 class="fw-bold mb-1">Registrar Paciente</h4>
-                    <span class="text-muted">Añadir nuevo ingreso</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-6">
-            <a href="/listarPacientes/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-people"></i></div>
-                    <h4 class="fw-bold mb-1">Listar Pacientes</h4>
-                    <span class="text-muted">Historial total</span>
-                </div>
-            </a>
-        </div>
-
-    </div>
-    {% endif %}
-
-
-
-    <!-- PANEL MÉDICO -->
-    {% if nomUsuario == 'MEDICO' %}
-    <h2 class="section-title text-center">Panel Médico</h2>
-
-    <div class="row g-4">
-
-        <div class="col-md-6">
-            <a href="/registrarPaciente/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-person-plus"></i></div>
-                    <h4 class="fw-bold">Registrar Paciente</h4>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-6">
-            <a href="/listarPacientes/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bbi bi-people"></i></div>
-                    <h4 class="fw-bold">Listar Pacientes</h4>
-                </div>
-            </a>
-        </div>
-
-    </div>
-    {% endif %}
-
-
-
-    <!-- PANEL ADMIN -->
-    {% if nomUsuario == 'ADMIN' %}
-    <h2 class="section-title text-center">Panel Administrador Hospital</h2>
-
-    <div class="row g-4">
-
-        <div class="col-md-4">
-            <a href="/actualizarCamas/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-hospital"></i></div>
-                    <h4 class="fw-bold">Actualizar Camas</h4>
-                    <span class="text-muted">Control de disponibilidad de camas Hospitalarias</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="#" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-arrow-left-right"></i></div>
-                    <h4 class="fw-bold">Gestionar Traslados</h4>
-                    <span class="text-muted">Control de Solicitudes de traslados a Hospital</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="/historial/" class="text-decoration-none text-dark">
-                <div class="card-modern">
-                    <div class="icon-circle mb-3"><i class="bi bi-journal-text"></i></div>
-                    <h4 class="fw-bold">Historial</h4>
-                    <span class="text-muted">Consulta los registros de actividades y acciones realizadas.</span>
-                </div>
-            </a>
-        </div>
-
-    </div>
-    {% endif %}
-
-
-
-    <!-- =================== DASHBOARD ====================== -->
-
-    <h2 class="section-title text-center mt-5">Dashboard Hospitalario</h2>
-
-    <div class="row g-4 mt-2">
-
-        <div class="col-md-6">
-            <div class="dash-card text-center">
-
-                <h5 class="fw-bold text-primary">Ocupación Actual</h5>
-
-                <div class="my-3">
-                    <svg width="110" height="110">
-                        <circle cx="55" cy="55" r="48" stroke="#e5e7eb" stroke-width="10" fill="none"/>
-                        <circle cx="55" cy="55" r="48" stroke="#0d6efd" stroke-width="10" fill="none"
-                                stroke-dasharray="{{ circumference }}"
-                                stroke-dashoffset="{{ offset }}"
-                                stroke-linecap="round"
-                                transform="rotate(-90 55 55)"/>
-                        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
-                              font-size="20" font-weight="700">{{ occupancyPct }}%</text>
-                    </svg>
-                </div>
-
-                <p class="mt-2 fw-semibold">{{ occupied }} / {{ totalBeds }} camas ocupadas</p>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="dash-card">
-                <h5 class="fw-bold text-primary">Últimas Anamnesis</h5>
-                <ul class="list-group list-group-flush mt-3">
-                    {% for a in latestAnamnesis %}
-                    <li class="list-group-item">
-                        <strong>{{ a.pacienteNombre }}</strong> — {{ a.resumen }}
-                        <br><small class="text-muted">{{ a.fecha|date:"d/m/Y H:i" }}</small>
-                    </li>
-                    {% empty %}
-                    <li class="list-group-item text-muted">No hay registros</li>
-                    {% endfor %}
+                    {% endif %}
                 </ul>
+
+                <div class="d-flex align-items-center">
+                    <span class="me-3 fw-bold text-primary">{{ nomUsuario }}</span>
+                    <button onclick="botonCerrarSesion()" class="btn btn-outline-primary btn-sm">Cerrar sesión</button>
+                </div>
             </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <div class="container py-5">
+
+
+        <!-- PANEL ENFERMERO Y TENS -->
+        {% if nomUsuario == 'TENS' or nomUsuario == 'ENFERMERO' %}
+        {% if nomUsuario == 'TENS' %}
+        <h2 class="section-title text-center">Panel Técnico en Enfermería</h2>
+        {% elif nomUsuario == 'ENFERMERO' %}
+        <h2 class="section-title text-center">Panel Enfermería</h2>
+        {% endif %}
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <a href="/registrarPaciente/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-person-plus"></i></div>
+                        <h4 class="fw-bold mb-1">Registrar Paciente</h4>
+                        <span class="text-muted">Añadir nueva Anamnesis</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a href="/listarPacientes/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-people"></i></div>
+                        <h4 class="fw-bold mb-1">Ver Pacientes</h4>
+                        <span class="text-muted">Información general de pacientes y fichas detalladas</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        {% endif %}
+
+        
+
+        <!-- PANEL MÉDICO -->
+        {% if nomUsuario == 'MEDICO' %}
+        <h2 class="section-title text-center">Panel Médico</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <a href="/registrarPaciente/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-person-plus"></i></div>
+                        <h4 class="fw-bold">Registrar Paciente</h4>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a href="/listarPacientes/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bbi bi-people"></i></div>
+                        <h4 class="fw-bold">Listar Pacientes</h4>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        {% endif %}
+
+
+
+        <!-- PANEL ADMIN -->
+        {% if nomUsuario == 'ADMIN' %}
+        <h2 class="section-title text-center">Panel Administrador Hospital</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <a href="/actualizarCamas/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-hospital"></i></div>
+                        <h4 class="fw-bold">Actualizar Camas</h4>
+                        <span class="text-muted">Control de disponibilidad de camas Hospitalarias</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="#" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-arrow-left-right"></i></div>
+                        <h4 class="fw-bold">Gestionar Traslados</h4>
+                        <span class="text-muted">Control de Solicitudes de traslados a Hospital</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/historial/" class="text-decoration-none text-dark">
+                    <div class="card-modern">
+                        <div class="icon-circle mb-3"><i class="bi bi-journal-text"></i></div>
+                        <h4 class="fw-bold">Historial</h4>
+                        <span class="text-muted">Consulta los registros de actividades y acciones realizadas.</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        {% endif %}
+
+
+
+        <!-- =================== DASHBOARD ====================== -->
+
+        <h2 class="section-title text-center mt-5">Dashboard Hospitalario</h2>
+
+        <div class="row g-4 mt-2">
+
+            <div class="col-md-6">
+                <div class="dash-card text-center">
+
+                    <h5 class="fw-bold text-primary">Ocupación Actual</h5>
+
+                    <div class="my-3">
+                        <svg width="110" height="110">
+                            <circle cx="55" cy="55" r="48" stroke="#e5e7eb" stroke-width="10" fill="none" />
+                            <circle cx="55" cy="55" r="48" stroke="#0d6efd" stroke-width="10" fill="none"
+                                stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"
+                                stroke-linecap="round" transform="rotate(-90 55 55)" />
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="20"
+                                font-weight="700">{{ occupancyPct }}%</text>
+                        </svg>
+                    </div>
+
+                    <p class="mt-2 fw-semibold">{{ occupied }} / {{ totalBeds }} camas ocupadas</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="dash-card">
+                    <h5 class="fw-bold text-primary">Últimas Anamnesis</h5>
+                    <ul class="list-group list-group-flush mt-3">
+                        {% for a in latestAnamnesis %}
+                        <li class="list-group-item">
+                            <strong>{{ a.pacienteNombre }}</strong> — {{ a.resumen }}
+                            <br><small class="text-muted">{{ a.fecha|date:"d/m/Y H:i" }}</small>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item text-muted">No hay registros</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
-</div>
-
-<footer class="text-center py-4 mt-5 small">
-    © 2025 RedSalud Regional — Sistema de Gestión de Pacientes
-</footer>
+    <footer class="text-center py-4 mt-5 small">
+        © 2025 RedSalud Regional — Sistema de Gestión de Pacientes
+    </footer>
 
 </body>
+
 </html>
