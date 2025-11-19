@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Registrar Paciente</title>
+    <title>Actualizar Paciente</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -118,7 +118,7 @@
 
             <ul class="navbar-nav me-auto ms-3">
                 <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/registrar/">Registrar</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/listarPacientes/">Actualizar</a></li>
                 <li class="nav-item"><a class="nav-link" href="/listarPacientes/">Pacientes</a></li>
             </ul>
 
@@ -132,94 +132,91 @@
 
 <!-- CONTENIDO -->
 <div class="container py-5">
-    <h2 class="section-title text-center">Registro de Paciente</h2>
+    <h2 class="section-title text-center">Actualizar Paciente</h2>
 
     {% if r %}
-    <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert" style="max-width: 900px;">
-        <h6 class="mb-0">{{ r }}</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-success alert-dismissible fade show card-modern mb-4" role="alert">
+        <strong><i class="bi bi-check-circle me-2"></i>{{ r }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     {% endif %}
 
     <div class="card-modern mx-auto" style="max-width: 900px;">
-        <form method="POST" action="/insertarPaciente/">
+        <form method="POST" action="/actualizarPaciente/{{ encontrado.id }}">
             {% csrf_token %}
             <div class="row g-3">
 
                 <div class="col-md-4">
                     <label class="form-label">RUT</label>
-                    <input type="text" name="txtrut" class="form-control" required placeholder="Ej: 11222333-4">
+                    <input type="text" name="txtrut" class="form-control" required value="{{ encontrado.rut }}">
                 </div>
 
                 <div class="col-md-4">
                     <label class="form-label">Previsión</label>
                     <select name="cbopvs" class="form-select" required>
-                        <option value="" disabled selected hidden>Seleccione...</option>
-                        <option>Fonasa</option>
-                        <option>Isapre</option>
-                        <option>Particular</option>
+                        <option value="Fonasa" {% if encontrado.prevision == "Fonasa" %}selected{% endif %}>Fonasa</option>
+                        <option value="Isapre" {% if encontrado.prevision == "Isapre" %}selected{% endif %}>Isapre</option>
+                        <option value="Particular" {% if encontrado.prevision == "Particular" %}selected{% endif %}>Particular</option>
                     </select>
                 </div>
 
                 <div class="col-md-4">
                     <label class="form-label">Género</label>
                     <select name="cbosex" class="form-select" required>
-                        <option value="" disabled selected hidden>Seleccione...</option>
-                        <option>Femenino</option>
-                        <option>Masculino</option>
-                        <option>Otro</option>
+                        <option value="Femenino" {% if encontrado.genero == "Femenino" %}selected{% endif %}>Femenino</option>
+                        <option value="Masculino" {% if encontrado.genero == "Masculino" %}selected{% endif %}>Masculino</option>
+                        <option value="Otro" {% if encontrado.genero == "Otro" %}selected{% endif %}>Otro</option>
                     </select>
                 </div>
 
                 <div class="col-md-4">
                     <label class="form-label">Accidente Laboral</label>
                     <select name="cboacc" class="form-select" required>
-                        <option value="" disabled selected hidden>Seleccione...</option>
-                        <option>Sí</option>
-                        <option>No</option>
+                        <option value="Sí" {% if encontrado.accidenteLaboral == "Sí" %}selected{% endif %}>Sí</option>
+                        <option value="No" {% if encontrado.accidenteLaboral == "No" %}selected{% endif %}>No</option>
                     </select>
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">Edad</label>
-                    <input type="number" name="txteda" class="form-control" required>
+                    <input type="number" name="txteda" class="form-control" required value="{{ encontrado.edad }}">
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Comorbilidades</label>
-                    <input type="text" name="txtcom" class="form-control" placeholder="Ej: Hipertensión, Diabetes...">
+                    <input type="text" name="txtcom" class="form-control" placeholder="Ej: Hipertensión, Diabetes..." value="{{ encontrado.Comobilidades }}">
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Funcionalidad</label>
-                    <input type="text" name="txtfun" class="form-control" required>
+                    <input type="text" name="txtfun" class="form-control" required value="{{ encontrado.funcionalidad }}">
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Motivo de Derivación</label>
-                    <input type="text" name="txtder" class="form-control" required>
+                    <input type="text" name="txtder" class="form-control" required value="{{ encontrado.motivoDerivacion }}">
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Prestación Requerida</label>
-                    <input type="text" name="txtpre" class="form-control" required>
+                    <input type="text" name="txtpre" class="form-control" required value="{{ encontrado.prestacionRequerida }}">
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Evaluación</label>
-                    <input type="text" name="txteva" class="form-control" required>
+                    <input type="text" name="txteva" class="form-control" required value="{{ encontrado.evaluacion }}">
                 </div>
 
                 <div class="col-12">
                     <label class="form-label">Información Adicional</label>
-                    <textarea name="txtinf" class="form-control" rows="3" placeholder="Observaciones o contexto social..."></textarea>
+                    <textarea name="txtinf" class="form-control" rows="3">{{ encontrado.adicional }}</textarea>
                 </div>
 
             </div>
 
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary me-2"><i class="bi bi-save me-1"></i>Guardar</button>
-                <a href="/menu/" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
+                <button type="submit" class="btn btn-primary me-2"><i class="bi bi-save me-1"></i>Guardar Cambios</button>
+                <a href="/listarPacientes/" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
             </div>
         </form>
     </div>

@@ -16,9 +16,15 @@ class Paciente(models.Model):
     prestacionRequerida = models.CharField(max_length=150)
     evaluacion = models.CharField(max_length=150)
     adicional = models.CharField(max_length=250, blank=True, null=True)
+    solicitudMedica =models.CharField(max_length=50, default='SIN_SOLICITUD')
+    
 
 class Diagnostico(models.Model):
-    pass
+    diagnostico = models.CharField(max_length=250)
+    medicacion = models.CharField(max_length=250, blank=True, null=True)
+    indicaciones = models.CharField(max_length=250)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    
 
 class Cama(models.Model):
     total = models.IntegerField()
@@ -29,9 +35,3 @@ class Historial(models.Model):
     descripcion_historial = models.TextField(max_length=200)
     tabla_afectada_historial = models.TextField(max_length=100)
     fecha_hora_historial = models.DateTimeField()
-
-
-
-
-
-
