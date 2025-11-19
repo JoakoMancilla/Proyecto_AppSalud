@@ -155,13 +155,26 @@
 
         <div class="card-modern mx-auto" style="max-width: 1200px;">
 
-            <!-- Buscador -->
-            <form method="GET" class="d-flex justify-content-center mb-4">
-                <input type="text" name="buscar" class="form-control form-control-lg w-50 me-2"
-                    placeholder="Buscar por RUT...">
-                <button type="submit" class="btn btn-primary btn-lg px-4">
-                    <i class="bi bi-search me-1"></i>Buscar
-                </button>
+            <!-- Buscador / Filtrado -->
+            <form action="/filtrarPacientes/" method="POST" class="row mb-4 g-2 justify-content-center">
+                {% csrf_token %}
+                <div class="col-3">
+                    <select name="campo" class="form-select form-select-lg">
+                        <option value="todos" {% if campo_actual == 'todos' %}selected{% endif %}>Todos</option>
+                        <option value="rut" {% if campo_actual == 'rut' %}selected{% endif %}>RUT</option>
+                        <option value="genero" {% if campo_actual == 'genero' %}selected{% endif %}>Género</option>
+                        <option value="edad" {% if campo_actual == 'edad' %}selected{% endif %}>Edad</option>
+                    </select>
+                </div>
+                <div class="col-5">
+                    <input type="text" name="txtfil" value="{{ filtro_actual }}"
+                        placeholder="Ingrese el texto a filtrar" class="form-control form-control-lg" />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="bi bi-search me-1"></i> Buscar
+                    </button>
+                </div>
             </form>
 
             <!-- Tabla -->
@@ -191,11 +204,12 @@
                             <!-- Solicitud -->
                             <td>
                                 {% if x.solicitudMedica == 'SOLICITADO' %}
-                                    <span class="solicitud-dot" title="Solicitud de diagnóstico pendiente"></span>
+                                <span class="solicitud-dot" title="Solicitud de diagnóstico pendiente"></span>
                                 {% endif %}
                             </td>
                             <td>
-                                <a href="/mostrarFichaPaciente/{{ x.id }}" class="btn p-0" title="Ver detalles / Editar">
+                                <a href="/mostrarFichaPaciente/{{ x.id }}" class="btn p-0"
+                                    title="Ver detalles / Editar">
                                     <i class="bi bi-person-lines-fill btn-icon"></i>
                                 </a>
                             </td>

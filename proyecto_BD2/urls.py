@@ -35,5 +35,8 @@ urlpatterns = [
     #path('insertarCamas/', views),
     #path('listarCamas/', views),
 
+    #Filtros
+    path('filtrarPacientes/', views.filtrarPacientes)
+
 
 ]

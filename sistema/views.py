@@ -155,8 +155,8 @@ def listarPacientes(request):
             datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
             return render(request,'index.html',datos)
     except:
-            datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
-            return render(request,'index.html',datos)
+        datos = {'r':'Debe iniciar sesión para ingresar al menu!'}
+        return render(request,'index.html',datos)
 
 def mostrarActualizarPaciente(request, id):
     estadoSesion = request.session.get("estadoSesion")
@@ -433,3 +433,29 @@ def listarHistorial(request):
             return render(request,'index.html',datos)
 
 #-----------------------------FILTROS-----------------------------
+def filtrarPacientes(request):
+    estado = request.session.get('estadoSesion', False)
+    nombre = request.session.get('nomUsuario', '')
+
+    if not estado:
+        return render(request,'index.html', {'r':'Debe Iniciar Sesión Para Acceder!!'})
+
+    campo = request.POST.get('campo', 'todos')
+    filtro = request.POST.get('txtfil', '').strip()
+
+    pacientes = Paciente.objects.all()
+
+    if campo != 'todos' and filtro:
+        if campo == 'rut':
+            pacientes = pacientes.filter(rut__icontains=filtro)
+        elif campo == 'genero':
+            pacientes = pacientes.filter(genero__icontains=filtro)
+        elif campo == 'edad' and filtro.isdigit():
+            pacientes = pacientes.filter(edad=int(filtro))
+
+    return render(request, 'listar_pacientes.html', {
+        'nomUsuario': nombre,
+        'pacientes': pacientes,
+        'campo_actual': campo,
+        'filtro_actual': filtro,
+    })
