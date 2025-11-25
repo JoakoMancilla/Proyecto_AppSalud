@@ -24,6 +24,8 @@ urlpatterns = [
     path('mostrarActualizarPaciente/<int:id>', views.mostrarActualizarPaciente),
     path('actualizarPaciente/<int:id>', views.actualizarPaciente),
     path('eliminarPaciente/<int:id>', views.eliminarPaciente),
+    #ajax
+    path('api/paciente/', views.PacienteGet.as_view()),
 
     #Diagnosticos
     path('registrarDiagnostico/<int:id>', views.insertarDiagnostico),

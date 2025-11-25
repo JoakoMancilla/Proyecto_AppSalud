@@ -6,6 +6,19 @@ from sistema.models import Paciente
 from sistema.models import Historial
 from sistema.models import Diagnostico
 from sistema.models import Cama
+#Ajax
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from sistema.serializers import PacienteSerializer
+
+#-----------------------------AJAX-----------------------------
+class PacienteGet(APIView):
+    def get(self, request):
+        pac = Paciente.objects.all().order_by('-id')[:3]
+        ser = PacienteSerializer(pac, many = True)
+        return Response(ser.data)
 
 #-----------------------------TEMPLATES-----------------------------
 def index(request):
@@ -317,6 +330,11 @@ def solicitarDiagnostico(request,id):
         }
 
     return render(request, 'ficha_paciente.html', datos)
+
+def ultimosPacientes(request):
+    #Ajax
+    datos = list(Paciente.objects.all().order_by('-id')[:5].values())
+    return JsonResponse(datos, safe=False)
 
 #-----------------------------CRUD DIAGNOSTICO-----------------------------
 def insertarDiagnostico(request, id):
