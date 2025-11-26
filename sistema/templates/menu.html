@@ -117,8 +117,9 @@
 
                     {% if nomUsuario == 'ADMIN' %}
                     <li class="nav-item"><a class="nav-link" href="/historial/">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mostrarActualizarCamas/">Camas</a></li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link" href="/registrar/">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registrarPaciente/">Registrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="/listarPacientes/">Pacientes</a></li>
                     {% endif %}
                 </ul>
@@ -206,7 +207,7 @@
         <div class="row g-4">
 
             <div class="col-md-4">
-                <a href="/actualizarCamas/" class="text-decoration-none text-dark">
+                <a href="/mostrarActualizarCamas" class="text-decoration-none text-dark">
                     <div class="card-modern">
                         <div class="icon-circle mb-3"><i class="bi bi-hospital"></i></div>
                         <h4 class="fw-bold">Actualizar Camas</h4>
@@ -246,26 +247,27 @@
 
         <div class="row g-4 mt-2">
 
+            <!-- TOTAL GENERAL -->
             <div class="col-md-6">
-                <div class="dash-card text-center h-100">
+                <div class="dash-card h-100 text-center"> <!-- AGREGADO text-center -->
+                    <h5 class="fw-bold text-primary mb-4">Total Hospital</h5>
 
-                    <h5 class="fw-bold text-primary">Ocupación Actual</h5>
-
-                    <div class="my-3">
-                        <svg width="110" height="110">
-                            <circle cx="55" cy="55" r="48" stroke="#e5e7eb" stroke-width="10" fill="none" />
-                            <circle cx="55" cy="55" r="48" stroke="#0d6efd" stroke-width="10" fill="none"
-                                stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"
-                                stroke-linecap="round" transform="rotate(-90 55 55)" />
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="20"
-                                font-weight="700">{{ occupancyPct }}%</text>
+                    <div class="my-3 d-flex justify-content-center"> <!-- CENTRADO -->
+                        <svg width="160" height="160"> <!-- UN POCO MÁS GRANDE -->
+                            <circle cx="80" cy="80" r="65" stroke="#e3ebff" stroke-width="14" fill="none" />
+                            <circle id="totalCircle" cx="80" cy="80" r="65" stroke="#0d6efd" stroke-width="14"
+                                fill="none" stroke-linecap="round" stroke-dasharray="408" stroke-dashoffset="408"
+                                transform="rotate(-90 80 80)" />
+                            <text id="totalPctText" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+                                font-size="28" font-weight="700">0%</text>
                         </svg>
                     </div>
 
-                    <p class="mt-2 fw-semibold">{{ occupied }} / {{ totalBeds }} camas ocupadas</p>
+                    <p id="totalText" class="fw-semibold mt-3">0 / 0 camas ocupadas</p>
                 </div>
             </div>
 
+            <!-- ANAMNESIS -->
             <div class="col-md-6">
                 <div class="dash-card text-center h-100">
 
@@ -294,7 +296,9 @@
         </div>
 
 
+
         <footer class="text-center py-4 mt-5 small">
+            <hr>
             © 2025 RedSalud Regional — Sistema de Gestión de Pacientes
         </footer>
 
@@ -338,6 +342,53 @@
                 // Actualizar automáticamente cada 5 segundos
                 setInterval(getPacientes, 5000);
             });
+
+            const CIRC = 2 * Math.PI * 55;  // ~345
+
+            // Cambiar área
+            $('#areaSelect').on('change', function () {
+                actualizarTableros();
+            });
+
+            function actualizarTableros() {
+                let areaSel = $('#areaSelect').val() || "";
+
+                $.ajax({
+                    url: "/api/cama/" + (areaSel ? `?area=${areaSel}` : ""),
+                    method: "GET",
+                    success: function (data) {
+
+                        // --- TOTAL GENERAL ---
+                        $('#totalText').text(`${data.general.occupied} / ${data.general.totalBeds} camas ocupadas`);
+                        $('#totalPctText').text(`${data.general.occupancyPct}%`);
+
+                        let offsetTotal = CIRC - (CIRC * data.general.occupancyPct / 100);
+                        $('#totalCircle').css("stroke-dasharray", CIRC);
+                        $('#totalCircle').css("stroke-dashoffset", offsetTotal);
+
+                        // --- POR ÁREA ---
+                        if (!data.area.name) {
+                            $('#areaText').text("Seleccione un área");
+                            $('#areaPctText').text("0%");
+                            $('#areaCircle').css("stroke-dashoffset", CIRC);
+                            return;
+                        }
+
+                        $('#areaText').text(`${data.area.occupied} / ${data.area.totalBeds} camas ocupadas`);
+                        $('#areaPctText').text(`${data.area.occupancyPct}%`);
+
+                        let offsetArea = CIRC - (CIRC * data.area.occupancyPct / 100);
+                        $('#areaCircle').css("stroke-dasharray", CIRC);
+                        $('#areaCircle').css("stroke-dashoffset", offsetArea);
+                    }
+                });
+            }
+
+            // Actualización inicial
+            actualizarTableros();
+
+            // Refrescar cada 5 segundos
+            setInterval(actualizarTableros, 5000);
 
         </script>
 

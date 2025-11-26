@@ -33,9 +33,10 @@ urlpatterns = [
     path('solicitarDiagnostico/<int:id>', views.solicitarDiagnostico),
 
     #Camas
-    #path('actualizarCamas/', views),
-    #path('insertarCamas/', views),
-    #path('listarCamas/', views),
+    path('mostrarActualizarCamas/', views.mostrarActulizarCamas),
+    #ajax
+    path('api/cama/', views.CamaGetPost.as_view()),
+    path('api/cama/<int:id>', views.CamaGetPutDelete.as_view()),
 
     #Filtros
     path('filtrarPacientes/', views.filtrarPacientes)

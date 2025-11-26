@@ -16,7 +16,7 @@ class Paciente(models.Model):
     prestacionRequerida = models.CharField(max_length=150)
     evaluacion = models.CharField(max_length=150)
     adicional = models.CharField(max_length=250, blank=True, null=True)
-    solicitudMedica =models.CharField(max_length=50, default='SIN_SOLICITUD')
+    solicitudMedica = models.CharField(max_length=50, default='SIN_SOLICITUD')
     
 
 class Diagnostico(models.Model):
@@ -27,8 +27,8 @@ class Diagnostico(models.Model):
     
 
 class Cama(models.Model):
-    total = models.IntegerField()
-    ocupadas = models.IntegerField()
+    area = models.CharField(max_length=50, default='URGENCIAS')
+    disponibilidad = models.CharField(max_length=50, default='LIBRE')
 
 class Historial(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
