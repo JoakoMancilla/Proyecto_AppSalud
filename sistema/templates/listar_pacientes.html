@@ -156,6 +156,13 @@
         function scrollDown() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
+
+        //Boton Cerrar Sesion
+        const botonCerrarSesion = () => {
+            if (window.confirm("¿Está seguro de querer cerrar la sesión?")) {
+                window.location.href = "/logout";
+            }
+        }
     </script>
 
 </head>
