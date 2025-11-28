@@ -19,7 +19,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* BOTONES FLOTANTES - MISMO AZUL EXACTO */
+        /* BOTONES FLOTANTES */
         .scroll-btn {
             position: fixed;
             right: 25px;
@@ -43,12 +43,8 @@
             background: #0b5ed7;
         }
 
-        #btnUp {
-            bottom: 90px;
-        }
-        #btnDown {
-            bottom: 30px;
-        }
+        #btnUp { bottom: 90px; }
+        #btnDown { bottom: 30px; }
 
         /* NAVBAR */
         .nav-glass {
@@ -77,10 +73,8 @@
             padding: 28px;
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: .25s ease;
         }
 
-        /* --------------------- TABLA MEJORADA ------------------------ */
         .table {
             border-radius: 16px;
             overflow: hidden;
@@ -92,21 +86,11 @@
 
         thead th {
             font-weight: 700;
-            letter-spacing: 0.4px;
-        }
-
-        tbody tr {
-            transition: 0.2s ease;
         }
 
         tbody tr:hover {
             background: rgba(13, 110, 253, 0.10);
             transform: scale(1.01);
-        }
-
-        tbody td {
-            font-weight: 500;
-            padding: 12px;
         }
 
         footer {
@@ -116,20 +100,55 @@
         }
     </style>
 
+    <!-- SCRIPT DEL FILTRO -->
     <script>
+        function cambiarInputHistorial() {
+            const campo = document.querySelector("select[name='campo']").value;
+            const contenedor = document.getElementById("contenedor-input-his");
+
+            contenedor.innerHTML = "";
+
+            if (campo === "usuario") {
+                contenedor.innerHTML = `
+                    <input type="text" name="txtfil" class="form-control form-control-lg"
+                    placeholder="Nombre del usuario">
+                `;
+            }
+            else if (campo === "accion") {
+                contenedor.innerHTML = `
+                    <input type="text" name="txtfil" class="form-control form-control-lg"
+                    placeholder="Acción realizada">
+                `;
+            }
+            else if (campo === "tabla") {
+                contenedor.innerHTML = `
+                    <input type="text" name="txtfil" class="form-control form-control-lg"
+                    placeholder="Tabla afectada">
+                `;
+            }
+            else if (campo === "fecha") {
+                contenedor.innerHTML = `
+                    <input type="date" name="txtfil" class="form-control form-control-lg">
+                `;
+            }
+            else {
+                contenedor.innerHTML = `
+                    <input type="text" name="txtfil" class="form-control form-control-lg"
+                    placeholder="Ingrese texto a buscar">
+                `;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", cambiarInputHistorial);
+
         const botonCerrarSesion = () => {
             if (window.confirm("¿Está seguro de querer cerrar la sesión?")) {
                 window.location.href = "/logout";
             }
         };
 
-        // Botones flotantes Scroll
-        function scrollUp() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function scrollDown() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
+        function scrollUp() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollDown() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
     </script>
 </head>
 
@@ -138,8 +157,6 @@
 <!-- BOTONES FLOTANTES -->
 <button id="btnUp" class="scroll-btn" onclick="scrollUp()"><i class="bi bi-arrow-up"></i></button>
 <button id="btnDown" class="scroll-btn" onclick="scrollDown()"><i class="bi bi-arrow-down"></i></button>
-
-
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg nav-glass py-3">
@@ -153,7 +170,6 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-
             <ul class="navbar-nav me-auto ms-3">
                 <li class="nav-item"><a class="nav-link" href="/menu/">Inicio</a></li>
 
@@ -174,7 +190,6 @@
     </div>
 </nav>
 
-
 <!-- ALERTA -->
 {% if r %}
 <div class="alert alert-success alert-dismissible fade show mt-3 container" role="alert">
@@ -183,11 +198,35 @@
 </div>
 {% endif %}
 
-
 <!-- CONTENIDO -->
 <div class="container my-5">
     <div class="card-modern mx-auto" style="max-width: 1100px;">
         <h2 class="text-center fw-bold text-primary mb-4">Historial de Acciones del Sistema</h2>
+
+        <!-- FILTRO -->
+        <form action="/filtrarHistorial/" method="POST" class="row mb-4 g-3 justify-content-center">
+            {% csrf_token %}
+
+            <div class="col-md-3">
+                <select name="campo" class="form-select form-select-lg" onchange="cambiarInputHistorial()">
+                    <option value="todos">Todos</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="accion">Acción</option>
+                    <option value="tabla">Tabla</option>
+                    <option value="fecha">Fecha</option>
+                </select>
+            </div>
+
+            <div class="col-md-5" id="contenedor-input-his">
+                <!-- Aquí cambia dinámicamente -->
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-lg w-100">
+                    <i class="bi bi-search me-1"></i> Buscar
+                </button>
+            </div>
+        </form>
 
         {% if his %}
         <div class="table-responsive">
@@ -214,6 +253,7 @@
                 </tbody>
             </table>
         </div>
+
         {% else %}
         <h4 class="text-center text-muted mt-4">
             <i class="bi bi-exclamation-circle me-2"></i>

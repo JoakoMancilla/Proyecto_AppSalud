@@ -455,6 +455,14 @@ def solicitarDiagnostico(request,id):
     p = Paciente.objects.get(id=id)
     p.solicitudMedica = "SOLICITADO"
     p.save()
+
+    # Se registra en la tabla historial.
+    descripcion = "Solicitud de Diagnostico a ("+str(p.rut.lower())+")"
+    tabla = "Diagnostico"
+    fechayhora = datetime.now()
+    usuario = request.session["idUsuario"]
+    his = Historial(descripcion_historial=descripcion, tabla_afectada_historial=tabla, fecha_hora_historial=fechayhora, usuario_id=usuario)
+    his.save()
     
     ultimo = Diagnostico.objects.filter(paciente=p).order_by('-id').first()
 
@@ -618,7 +626,7 @@ def filtrarPacientes(request):
     campo = request.POST.get('campo', 'todos')
     filtro = request.POST.get('txtfil', '').strip()
 
-    pacientes = Paciente.objects.all()
+    pacientes = Paciente.objects.all().order_by('-id')
 
     if campo != 'todos' and filtro:
         if campo == 'rut':
@@ -636,6 +644,55 @@ def filtrarPacientes(request):
     return render(request, 'listar_pacientes.html', {
         'nomUsuario': nombre,
         'pacientes': pacientes,
+        'campo_actual': campo,
+        'filtro_actual': filtro,
+    })
+
+def filtrarHistorial(request):
+    estado = request.session.get('estadoSesion', False)
+    nombre = request.session.get('nomUsuario', '')
+
+    if not estado:
+        return render(request, 'index.html', {'r': 'Debe Iniciar Sesión Para Acceder!!'})
+
+    campo = request.POST.get('campo', 'todos')
+    filtro = request.POST.get('txtfil', '').strip()
+
+    historial = Historial.objects.all()
+
+    if campo != 'todos' and filtro:
+
+        if campo == 'usuario':
+            historial = historial.filter(usuario__nombre__icontains=filtro)
+
+        elif campo == 'accion':
+            historial = historial.filter(descripcion_historial__icontains=filtro)
+
+        elif campo == 'tabla':
+            historial = historial.filter(tabla_afectada_historial__icontains=filtro)
+
+        elif campo == 'fecha':
+            # filtro = "YYYY-MM-DD" o "YYYY-MM" o "YYYY"
+            partes = filtro.split("-")
+
+            if len(partes) == 1:  
+                # Solo año
+                historial = historial.filter(fecha_hora_historial__year=partes[0])
+
+            elif len(partes) == 2:  
+                # Año y mes
+                historial = historial.filter(
+                    fecha_hora_historial__year=partes[0],
+                    fecha_hora_historial__month=partes[1]
+                )
+
+            elif len(partes) == 3:  
+                # Día exacto
+                historial = historial.filter(fecha_hora_historial__date=filtro)
+
+    return render(request, 'listar_historial.html', {
+        'nomUsuario': nombre,
+        'his': historial,
         'campo_actual': campo,
         'filtro_actual': filtro,
     })

@@ -39,7 +39,8 @@ urlpatterns = [
     path('api/cama/<int:id>', views.CamaGetPutDelete.as_view()),
 
     #Filtros
-    path('filtrarPacientes/', views.filtrarPacientes)
+    path('filtrarPacientes/', views.filtrarPacientes),
+    path('filtrarHistorial/', views.filtrarHistorial)
 
 
 ]
