@@ -1,4 +1,4 @@
-#🏥 App de Salud – Sistema de Gestión Clínica
+# 🏥 App de Salud – Sistema de Gestión Clínica
 
 Aplicación web orientada a la gestión de información médica, desarrollada con Django, que permite el acceso mediante distintos perfiles de usuario, el registro de anamnesis y la visualización de información a través de un dashboard centralizado.
 
