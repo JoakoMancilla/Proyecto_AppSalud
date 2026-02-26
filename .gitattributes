@@ -1,0 +1,15 @@
+# Templates HTML no cuentan como lenguaje principal
+*.html linguist-detectable=false
+
+# CSS tampoco domina el repo
+*.css linguist-detectable=false
+
+# JavaScript opcional (si no es el foco)
+*.js linguist-detectable=false
+
+# ========== FORZAR LENGUAJE ==========
+# Unity scripts
+*.cs linguist-detectable=true
+
+# Django backend
+*.py linguist-detectable=true
